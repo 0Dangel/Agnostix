@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Keys</title>
+</head>
+<body>
+
+<h1>Possible keys</h1>
+<ul>
+    <li th:each="key : ${possibleKeys}">
+        <a th:href="${'/exchange/'+key}" th:text="${key}"></a>
+    </li>
+</ul>
+
+
+<h1>Loaded keys</h1>
+<ul>
+    <li th:each="key : ${loadedKeys}">
+        <a th:href="${'/exchange/'+key}" th:text="${key}"></a>
+    </li>
+</ul>
+
+
+</body>
+</html>

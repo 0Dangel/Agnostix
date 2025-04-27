@@ -14,7 +14,7 @@ import java.util.*;
 @Service
 public class LocalCacheService {
 
-    Map<ExchangeSources, AbstractApiDownloader> apiDownloadersMap = new EnumMap<>(ExchangeSources.class);
+    private final Map<ExchangeSources, AbstractApiDownloader> apiDownloadersMap = new EnumMap<>(ExchangeSources.class);
 
     private final Map<ExchangeSources, ExchangeCacheMapEntity> cacheMap = new EnumMap<>(ExchangeSources.class);
     private LocalDateTime dateOfUpdate = LocalDateTime.now();
@@ -29,10 +29,11 @@ public class LocalCacheService {
     }
 
     public ExchangeCacheMapEntity getExchange( ExchangeSources source) {
-        if(source.equals(ExchangeSources.DEFAULT_EXCHANGE_SOURCE)) {
+        AbstractApiDownloader downloader = apiDownloadersMap.get(source);
+        if(downloader == null) {
             return null;
         }
-        ExchangeCacheMapEntity result = cacheMap.computeIfAbsent(source, v -> new ExchangeCacheMapEntity(apiDownloadersMap.get(source).getTodayExchanges(),source,LocalDateTime.now()));
+        ExchangeCacheMapEntity result = cacheMap.computeIfAbsent(source, v -> new ExchangeCacheMapEntity(downloader.getTodayExchanges(),source,LocalDateTime.now()));
 
         if(!Objects.equals(result.getUpdated().toLocalDate(), LocalDate.now())){
             cacheMap.put(source,new ExchangeCacheMapEntity(apiDownloadersMap.get(source).getTodayExchanges(),source,LocalDateTime.now()));

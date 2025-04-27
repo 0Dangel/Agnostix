@@ -1,5 +1,6 @@
 package com.dangel.agnostix.dto;
 
+import com.dangel.agnostix.basic.ExchangeCacheMapEntity;
 import com.dangel.agnostix.basic.ExchangeRate;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -25,6 +26,23 @@ public class ExchangePreviewJson implements Serializable {
 
     public ExchangePreviewJson(String placeOfOrigin) {
         this.placeOfOrigin = placeOfOrigin;
+    }
+
+    public ExchangePreviewJson(List<ExchangeRate> rates, String placeOfOrigin) {
+        this.rates = rates;
+        this.placeOfOrigin = placeOfOrigin;
+    }
+
+    /**
+     * Factory method from ExchangeCacheMapEntity
+     *
+     * @param exchangeCacheMapEntity
+     */
+    public ExchangePreviewJson(ExchangeCacheMapEntity exchangeCacheMapEntity) {
+        if (exchangeCacheMapEntity != null) {
+            this.rates = exchangeCacheMapEntity.getExchangeRates();
+            this.placeOfOrigin = exchangeCacheMapEntity.getSource().getCode();
+        }
     }
 
     public List<ExchangeRate> getRates() {
