@@ -8,13 +8,12 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class CnbService {
+public class CnbService extends AbstractApiDownloader {
 
     @Value("${foreign.api.cnb.xml}")
     private String CNB_URL_XML ;
@@ -22,20 +21,11 @@ public class CnbService {
     @Value("${foreign.api.cnb.csv}")
     private String CNB_URL_CSV ;
 
-    /**
-     * Internally used function to make simple requests
-     * @param url
-     * @return
-     */
-    private ResponseEntity<String> makeRequest(String url) {
-        HttpEntity<String> httpEntity = new HttpEntity<>(new HttpHeaders());
-        RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.exchange(url, HttpMethod.GET, httpEntity, String.class);
+
+    public HttpStatusCode getState(){
+       return getState(CNB_URL_CSV);
     }
 
-    public HttpStatusCode getState() {
-        return makeRequest(CNB_URL_CSV).getStatusCode();
-    }
 
     /**
      * returns a string of exchange values in CSV by CNB
