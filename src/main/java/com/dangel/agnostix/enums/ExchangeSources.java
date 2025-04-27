@@ -1,7 +1,7 @@
 package com.dangel.agnostix.enums;
 
 public enum ExchangeSources {
-    CNB("cnb"),CURRENCY_API("currency_api"), DEFAULT_EXCHANGE_SOURCE("default_exchange_source");
+    CNB("cnb"),EXCHANGE_API("exchange_api"),CURRENCY_API("currency_api"), DEFAULT_EXCHANGE_SOURCE("default_exchange_source");
 
     private final String code;
     ExchangeSources(String code) {

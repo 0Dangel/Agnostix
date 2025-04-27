@@ -1,6 +1,12 @@
 package com.dangel.agnostix.connectors;
 
 import com.dangel.agnostix.basic.ExchangeRate;
+import com.dangel.agnostix.dto.xchange.XchangeJson;
+import com.dangel.agnostix.enums.ExchangeSources;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.json.JsonMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -12,6 +18,8 @@ import java.util.List;
 
 @Service
 public class ExchangeApiDownloaderService extends AbstractApiDownloader{
+
+    private static Logger logger = LoggerFactory.getLogger(ExchangeApiDownloaderService.class);
 
     @Value("${foreign.api.xchange.json:https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/czk.json}")
     private String URL_JSON ;
@@ -36,6 +44,21 @@ public class ExchangeApiDownloaderService extends AbstractApiDownloader{
         ResponseEntity<String> response = makeRequest(URL_JSON);
         if(response.getStatusCode() == HttpStatus.OK) {
             //Do some work
+            try {
+                JsonMapper jsonMapper = new JsonMapper();
+                XchangeJson mappedJson = jsonMapper.readValue(response.getBody(), XchangeJson.class);
+                List<ExchangeRate> result = new ArrayList<>(mappedJson.getExchangeRates().size());
+                mappedJson.getExchangeRates().forEach((key, value) ->
+                        result.add(
+                                //TODO: find a way to fix / properly implement the currency and such, it should work without it
+                                new ExchangeRate(key,"?",1,key,value, ExchangeSources.EXCHANGE_API)
+                        )
+                );
+                return result;
+            }
+            catch (JsonProcessingException e) {
+                logger.error(e.getMessage());
+            }
 
         }
 
