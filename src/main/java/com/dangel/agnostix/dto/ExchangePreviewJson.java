@@ -3,9 +3,16 @@ package com.dangel.agnostix.dto;
 import com.dangel.agnostix.basic.ExchangeRate;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.List;
 
-public class ExchangePreviewJson {
+public class ExchangePreviewJson implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+    @JsonProperty("rates")
     private List<ExchangeRate> rates;
     @JsonProperty("origin")
     private String placeOfOrigin;
