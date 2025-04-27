@@ -34,6 +34,7 @@ public abstract class AbstractApiDownloader {
 
     /**
      * returns a string of exchange values in CSV by CNB
+     *
      * @return
      */
     protected String getToday(String url) {
@@ -43,7 +44,7 @@ public abstract class AbstractApiDownloader {
 
         ResponseEntity<String> response = makeRequest(url);
 
-        if(response.getStatusCode() == HttpStatus.OK) {
+        if (response.getStatusCode() == HttpStatus.OK) {
             return response.getBody();
         }
         return response.getStatusCode().toString();
@@ -51,6 +52,7 @@ public abstract class AbstractApiDownloader {
 
     /**
      * This just so I can use this AbstractClass as an Interface as well
+     *
      * @return
      */
     public abstract List<ExchangeRate> getTodayExchanges();

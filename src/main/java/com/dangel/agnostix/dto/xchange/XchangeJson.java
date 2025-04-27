@@ -11,10 +11,10 @@ import java.util.Map;
 public class XchangeJson {
     @JsonProperty(value = "date")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    @JsonDeserialize(using= LocalDateDeserializer.class)
+    @JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate date;
     @JsonProperty(value = "czk")
-    private Map<String,Double> exchangeRates;
+    private Map<String, Double> exchangeRates;
 
     public LocalDate getDate() {
         return date;

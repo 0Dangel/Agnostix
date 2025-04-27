@@ -9,11 +9,11 @@ public class ExchangeRate {
     private double price;
 
     public ExchangeRate() {
-        this("?","?",1,"?",1);
+        this("?", "?", 1, "?", 1);
     }
 
     public ExchangeRate(String country, String currency, int amount, String code, double price) {
-       this(country,currency,amount,code,"CZK",price);
+        this(country, currency, amount, code, "CZK", price);
     }
 
     public ExchangeRate(String country, String currency, int amount, String code, String referenceCode, double price) {
@@ -73,7 +73,7 @@ public class ExchangeRate {
         this.referenceCode = referenceCode.trim().toUpperCase();
     }
 
-    public String getMapKey(){
-        return code+"_"+ referenceCode;
+    public String getMapKey() {
+        return code + "_" + referenceCode;
     }
 }

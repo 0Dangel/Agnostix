@@ -24,7 +24,7 @@ public class LocalCacheService {
         apiDownloadersMap.put(ExchangeSources.EXCHANGE_API, exchangeApiDownloaderService);
     }
 
-    public void updateAll(){
+    public void updateAll() {
         for (ExchangeSources source : apiDownloadersMap.keySet()) {
             getExchange(source);
         }
@@ -34,15 +34,15 @@ public class LocalCacheService {
         return getExchange(ExchangeSources.fromCode(source.toLowerCase()));
     }
 
-    public ExchangeCacheMapEntity getExchange( ExchangeSources source) {
+    public ExchangeCacheMapEntity getExchange(ExchangeSources source) {
         AbstractApiDownloader downloader = apiDownloadersMap.get(source);
-        if(downloader == null) {
+        if (downloader == null) {
             return null;
         }
-        ExchangeCacheMapEntity result = cacheMap.computeIfAbsent(source, v -> new ExchangeCacheMapEntity(downloader.getTodayExchanges(),source,LocalDateTime.now()));
+        ExchangeCacheMapEntity result = cacheMap.computeIfAbsent(source, v -> new ExchangeCacheMapEntity(downloader.getTodayExchanges(), source, LocalDateTime.now()));
 
-        if(!Objects.equals(result.getUpdated().toLocalDate(), LocalDate.now())){
-            cacheMap.put(source,new ExchangeCacheMapEntity(apiDownloadersMap.get(source).getTodayExchanges(),source,LocalDateTime.now()));
+        if (!Objects.equals(result.getUpdated().toLocalDate(), LocalDate.now())) {
+            cacheMap.put(source, new ExchangeCacheMapEntity(apiDownloadersMap.get(source).getTodayExchanges(), source, LocalDateTime.now()));
         }
 
         return result;

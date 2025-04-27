@@ -2,7 +2,6 @@ package com.dangel.agnostix.connectors;
 
 import com.dangel.agnostix.basic.ExchangeRate;
 import com.dangel.agnostix.dto.xchange.XchangeJson;
-import com.dangel.agnostix.enums.ExchangeSources;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import org.slf4j.Logger;
@@ -17,19 +16,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class ExchangeApiDownloaderService extends AbstractApiDownloader{
+public class ExchangeApiDownloaderService extends AbstractApiDownloader {
 
-    private static Logger logger = LoggerFactory.getLogger(ExchangeApiDownloaderService.class);
+    private static final Logger logger = LoggerFactory.getLogger(ExchangeApiDownloaderService.class);
 
     @Value("${foreign.api.xchange.json:https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/czk.json}")
-    private String URL_JSON ;
+    private String URL_JSON;
 
-    public HttpStatusCode getState(){
+    public HttpStatusCode getState() {
         return super.getState(URL_JSON);
     }
 
     /**
      * returns a string of exchange values in CSV by Exchange-Api
+     *
      * @return
      */
     public String getToday() {
@@ -40,9 +40,9 @@ public class ExchangeApiDownloaderService extends AbstractApiDownloader{
      * Currently just a Stub - to be implemented
      */
     @Override
-    public List<ExchangeRate> getTodayExchanges(){
+    public List<ExchangeRate> getTodayExchanges() {
         ResponseEntity<String> response = makeRequest(URL_JSON);
-        if(response.getStatusCode() == HttpStatus.OK) {
+        if (response.getStatusCode() == HttpStatus.OK) {
             //Do some work
             try {
                 JsonMapper jsonMapper = new JsonMapper();
@@ -51,12 +51,11 @@ public class ExchangeApiDownloaderService extends AbstractApiDownloader{
                 mappedJson.getExchangeRates().forEach((key, value) ->
                         result.add(
                                 //TODO: find a way to fix / properly implement the currency and such, it should work without it
-                                new ExchangeRate(key,"?",1,key,1d/value)
+                                new ExchangeRate(key, "?", 1, key, 1d / value)
                         )
                 );
                 return result;
-            }
-            catch (JsonProcessingException e) {
+            } catch (JsonProcessingException e) {
                 logger.error(e.getMessage());
             }
 

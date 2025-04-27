@@ -2,7 +2,6 @@ package com.dangel.agnostix.connectors;
 
 import com.dangel.agnostix.dto.cnb.CnbXml;
 import com.dangel.agnostix.basic.ExchangeRate;
-import com.dangel.agnostix.enums.ExchangeSources;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import org.slf4j.Logger;
@@ -21,7 +20,7 @@ import java.util.List;
 @Service
 public class CnbApiDownloaderService extends AbstractApiDownloader {
 
-    private static Logger logger = LoggerFactory.getLogger(CnbApiDownloaderService.class);
+    private static final Logger logger = LoggerFactory.getLogger(CnbApiDownloaderService.class);
 
     @Value("${foreign.api.cnb.xml:https://www.cnb.cz/cs/financni_trhy/devizovy_trh/kurzy_devizoveho_trhu/denni_kurz.xml}")
     private String URL_XML;
@@ -30,23 +29,24 @@ public class CnbApiDownloaderService extends AbstractApiDownloader {
     private String URL_CSV;
 
 
-    public HttpStatusCode getState(){
-       return getState(URL_CSV);
+    public HttpStatusCode getState() {
+        return getState(URL_CSV);
     }
 
 
-    public String getToday(){
+    public String getToday() {
         return getToday(URL_CSV);
     }
 
     /**
      * Returns today values converted to {@link ExchangeRate} format
+     *
      * @return
      */
     @Override
     public List<ExchangeRate> getTodayExchanges() {
         ResponseEntity<String> response = makeRequest(URL_XML);
-        if(response.getStatusCode() == HttpStatus.OK) {
+        if (response.getStatusCode() == HttpStatus.OK) {
             try {
                 XmlMapper xmlMapper = new XmlMapper();
                 CnbXml requestedXml = xmlMapper.readValue(response.getBody(), CnbXml.class);
@@ -56,7 +56,7 @@ public class CnbApiDownloaderService extends AbstractApiDownloader {
                     exchangeRate.setCode(exchange.getCode());
                     exchangeRate.setAmount(1);
                     exchangeRate.setCurrency(exchange.getCurrency());
-                    exchangeRate.setPrice(Double.parseDouble(exchange.getRate().replace(',','.'))/exchange.getAmount());
+                    exchangeRate.setPrice(Double.parseDouble(exchange.getRate().replace(',', '.')) / exchange.getAmount());
                     listOfExchanges.add(exchangeRate);
                 });
                 return listOfExchanges;
