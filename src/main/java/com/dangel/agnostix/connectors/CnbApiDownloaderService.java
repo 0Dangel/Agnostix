@@ -1,6 +1,6 @@
 package com.dangel.agnostix.connectors;
 
-import com.dangel.agnostix.dto.CnbXml;
+import com.dangel.agnostix.dto.cnb.CnbXml;
 import com.dangel.agnostix.basic.ExchangeRate;
 import com.dangel.agnostix.enums.ExchangeSources;
 import com.fasterxml.jackson.core.JsonProcessingException;

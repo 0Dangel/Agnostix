@@ -1,4 +1,4 @@
- package com.dangel.agnostix.dto;
+ package com.dangel.agnostix.dto.cnb;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
