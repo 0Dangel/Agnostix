@@ -5,19 +5,24 @@ public class ExchangeRate {
     private String currency;
     private int amount;
     private String code;
+    private String referenceCurrency;
     private double price;
 
     public ExchangeRate() {
-        amount = 1;
-        price = 1.0;
+        this("?","?",1,"?",1);
     }
 
     public ExchangeRate(String country, String currency, int amount, String code, double price) {
-        this.country = country;
-        this.currency = currency;
+       this(country,currency,amount,code,"CZK",price);
+    }
+
+    public ExchangeRate(String country, String currency, int amount, String code, String referenceCurrency, double price) {
+        this.country = country.trim().toUpperCase();
+        this.currency = currency.trim().toUpperCase();
         this.amount = amount;
-        this.code = code;
+        this.code = code.trim().toUpperCase();
         this.price = price;
+        this.referenceCurrency = referenceCurrency.trim().toUpperCase();
     }
 
     public String getCountry() {
@@ -58,5 +63,13 @@ public class ExchangeRate {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public String getReferenceCurrency() {
+        return referenceCurrency;
+    }
+
+    public void setReferenceCurrency(String referenceCurrency) {
+        this.referenceCurrency = referenceCurrency;
     }
 }
