@@ -19,15 +19,15 @@ import java.util.List;
 @Service
 public class CnbApiDownloaderService extends AbstractApiDownloader {
 
-    @Value("${foreign.api.cnb.xml}")
-    private String CNB_URL_XML ;
+    @Value("${foreign.api.cnb.xml:https://www.cnb.cz/cs/financni_trhy/devizovy_trh/kurzy_devizoveho_trhu/denni_kurz.xml}")
+    private String URL_XML;
 
-    @Value("${foreign.api.cnb.csv}")
-    private String CNB_URL_CSV ;
+    @Value("${foreign.api.cnb.csv:https://www.cnb.cz/cs/financni_trhy/devizovy_trh/kurzy_devizoveho_trhu/denni_kurz.csv}")
+    private String URL_CSV;
 
 
     public HttpStatusCode getState(){
-       return getState(CNB_URL_CSV);
+       return getState(URL_CSV);
     }
 
 
@@ -36,7 +36,7 @@ public class CnbApiDownloaderService extends AbstractApiDownloader {
      * @return
      */
     public String getToday() {
-        ResponseEntity<String> response = makeRequest(CNB_URL_CSV);
+        ResponseEntity<String> response = makeRequest(URL_CSV);
 
         if(response.getStatusCode() == HttpStatus.OK) {
             return response.getBody();
@@ -49,7 +49,7 @@ public class CnbApiDownloaderService extends AbstractApiDownloader {
      * @return
      */
     public List<ExchangeRate> getTodayExchanges() {
-        ResponseEntity<String> response = makeRequest(CNB_URL_XML);
+        ResponseEntity<String> response = makeRequest(URL_XML);
         if(response.getStatusCode() == HttpStatus.OK) {
             try {
                 XmlMapper xmlMapper = new XmlMapper();
