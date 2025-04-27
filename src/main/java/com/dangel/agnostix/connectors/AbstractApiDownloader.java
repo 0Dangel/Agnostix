@@ -53,5 +53,5 @@ public abstract class AbstractApiDownloader {
      * This just so I can use this AbstractClass as an Interface as well
      * @return
      */
-    protected abstract List<ExchangeRate> getTodayExchanges();
+    public abstract List<ExchangeRate> getTodayExchanges();
 }
