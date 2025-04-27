@@ -1,16 +1,16 @@
 package com.dangel.agnostix.rest;
 
 
-import com.dangel.agnostix.connectors.CnbService;
+import com.dangel.agnostix.connectors.CnbApiDownloaderService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class HealthCheck {
 
-    CnbService cnbservice;
+    CnbApiDownloaderService cnbservice ;
 
-    public HealthCheck(CnbService cnbservice) {
+    public HealthCheck(CnbApiDownloaderService cnbservice) {
         this.cnbservice = cnbservice;
     }
 

@@ -1,6 +1,6 @@
 package com.dangel.agnostix.endpoints;
 
-import com.dangel.agnostix.connectors.CnbService;
+import com.dangel.agnostix.connectors.CnbApiDownloaderService;
 import com.dangel.agnostix.dto.CnbDto;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class CnbEndpoint {
 
-    private CnbService cnbService;
+    private CnbApiDownloaderService cnbService;
 
-    public CnbEndpoint(CnbService cnbService) {
+    public CnbEndpoint(CnbApiDownloaderService cnbService) {
         this.cnbService = cnbService;
     }
 

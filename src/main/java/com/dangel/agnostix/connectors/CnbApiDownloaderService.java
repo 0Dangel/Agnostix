@@ -12,8 +12,12 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Service mainly because i want to be able to change the URLs from .settings file
+ * It also does not make sense to instantiate these everywhere anew.
+ */
 @Service
-public class CnbService extends AbstractApiDownloader {
+public class CnbApiDownloaderService extends AbstractApiDownloader {
 
     @Value("${foreign.api.cnb.xml}")
     private String CNB_URL_XML ;
