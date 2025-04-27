@@ -24,6 +24,12 @@ public class LocalCacheService {
         apiDownloadersMap.put(ExchangeSources.EXCHANGE_API, exchangeApiDownloaderService);
     }
 
+    public void updateAll(){
+        for (ExchangeSources source : apiDownloadersMap.keySet()) {
+            getExchange(source);
+        }
+    }
+
     public ExchangeCacheMapEntity getExchange(String source) {
         return getExchange(ExchangeSources.fromCode(source.toLowerCase()));
     }
@@ -40,6 +46,10 @@ public class LocalCacheService {
         }
 
         return result;
+    }
+
+    public List<ExchangeSources> getPossibleSources() {
+        return apiDownloadersMap.keySet().stream().toList();
     }
 
     public Map<ExchangeSources, ExchangeCacheMapEntity> getExchangeMap() {

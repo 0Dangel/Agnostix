@@ -21,7 +21,7 @@ public class GenericApiEndpoint {
     @GetMapping("/keys")
     public String getPossibleKeys(Model model) {
         model.addAttribute("loadedKeys", localCacheService.getExchangeMap().keySet());
-        model.addAttribute("possibleKeys", ExchangeSources.values());
+        model.addAttribute("possibleKeys", localCacheService.getPossibleSources());
         return "keys";
     }
 }
