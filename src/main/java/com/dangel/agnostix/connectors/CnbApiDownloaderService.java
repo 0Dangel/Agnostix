@@ -5,6 +5,8 @@ import com.dangel.agnostix.basic.ExchangeRate;
 import com.dangel.agnostix.enums.ExchangeSources;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,8 @@ import java.util.List;
  */
 @Service
 public class CnbApiDownloaderService extends AbstractApiDownloader {
+
+    private static Logger logger = LoggerFactory.getLogger(CnbApiDownloaderService.class);
 
     @Value("${foreign.api.cnb.xml:https://www.cnb.cz/cs/financni_trhy/devizovy_trh/kurzy_devizoveho_trhu/denni_kurz.xml}")
     private String URL_XML;
@@ -58,7 +62,7 @@ public class CnbApiDownloaderService extends AbstractApiDownloader {
                 });
                 return listOfExchanges;
             } catch (JsonProcessingException e) {
-                return new ArrayList<>();
+                logger.error(e.getMessage());
             }
         }
         return new ArrayList<>();
