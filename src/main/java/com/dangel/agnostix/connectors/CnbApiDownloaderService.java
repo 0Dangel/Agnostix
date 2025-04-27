@@ -31,17 +31,8 @@ public class CnbApiDownloaderService extends AbstractApiDownloader {
     }
 
 
-    /**
-     * returns a string of exchange values in CSV by CNB
-     * @return
-     */
-    public String getToday() {
-        ResponseEntity<String> response = makeRequest(URL_CSV);
-
-        if(response.getStatusCode() == HttpStatus.OK) {
-            return response.getBody();
-        }
-        return response.getStatusCode().toString();
+    public String getToday(){
+        return getToday(URL_CSV);
     }
 
     /**

@@ -28,4 +28,21 @@ public abstract class AbstractApiDownloader {
         }
         return makeRequest(url).getStatusCode();
     }
+
+    /**
+     * returns a string of exchange values in CSV by CNB
+     * @return
+     */
+    protected String getToday(String url) {
+        if (url == null || url.isEmpty()) {
+            return HttpStatus.BAD_REQUEST.getReasonPhrase();
+        }
+
+        ResponseEntity<String> response = makeRequest(url);
+
+        if(response.getStatusCode() == HttpStatus.OK) {
+            return response.getBody();
+        }
+        return response.getStatusCode().toString();
+    }
 }
