@@ -11,7 +11,7 @@ public enum ExchangeSources {
         return code;
     }
 
-    public ExchangeSources fromCode(String code) {
+    public static ExchangeSources fromCode(String code) {
         for (ExchangeSources source : ExchangeSources.values()) {
             if (source.getCode().equals(code)) {
                 return source;
@@ -19,6 +19,4 @@ public enum ExchangeSources {
         }
         return ExchangeSources.DEFAULT_EXCHANGE_SOURCE;
     }
-
-
 }
