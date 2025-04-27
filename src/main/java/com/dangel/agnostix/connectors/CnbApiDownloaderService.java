@@ -39,6 +39,7 @@ public class CnbApiDownloaderService extends AbstractApiDownloader {
      * Returns today values converted to {@link ExchangeRate} format
      * @return
      */
+    @Override
     public List<ExchangeRate> getTodayExchanges() {
         ResponseEntity<String> response = makeRequest(URL_XML);
         if(response.getStatusCode() == HttpStatus.OK) {

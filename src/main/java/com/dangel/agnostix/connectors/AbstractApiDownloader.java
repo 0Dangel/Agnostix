@@ -1,7 +1,10 @@
 package com.dangel.agnostix.connectors;
 
+import com.dangel.agnostix.basic.ExchangeRate;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.List;
 
 public abstract class AbstractApiDownloader {
 
@@ -45,4 +48,10 @@ public abstract class AbstractApiDownloader {
         }
         return response.getStatusCode().toString();
     }
+
+    /**
+     * This just so I can use this AbstractClass as an Interface as well
+     * @return
+     */
+    protected abstract List<ExchangeRate> getTodayExchanges();
 }
