@@ -54,9 +54,9 @@ public class CnbApiDownloaderService extends AbstractApiDownloader {
                 requestedXml.getTable().getRows().forEach(exchange -> {
                     ExchangeRate exchangeRate = new ExchangeRate();
                     exchangeRate.setCode(exchange.getCode());
-                    exchangeRate.setAmount(exchange.getAmount());
+                    exchangeRate.setAmount(1);
                     exchangeRate.setCurrency(exchange.getCurrency());
-                    exchangeRate.setPrice(Double.parseDouble(exchange.getRate().replace(',','.')));
+                    exchangeRate.setPrice(Double.parseDouble(exchange.getRate().replace(',','.'))/exchange.getAmount());
                     listOfExchanges.add(exchangeRate);
                 });
                 return listOfExchanges;
