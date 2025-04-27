@@ -51,7 +51,7 @@ public class ExchangeApiDownloaderService extends AbstractApiDownloader{
                 mappedJson.getExchangeRates().forEach((key, value) ->
                         result.add(
                                 //TODO: find a way to fix / properly implement the currency and such, it should work without it
-                                new ExchangeRate(key,"?",1,key,value)
+                                new ExchangeRate(key,"?",1,key,1d/value)
                         )
                 );
                 return result;
