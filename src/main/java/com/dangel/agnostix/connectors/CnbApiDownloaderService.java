@@ -56,7 +56,6 @@ public class CnbApiDownloaderService extends AbstractApiDownloader {
                     exchangeRate.setCode(exchange.getCode());
                     exchangeRate.setAmount(exchange.getAmount());
                     exchangeRate.setCurrency(exchange.getCurrency());
-                    exchangeRate.setSource(ExchangeSources.CNB);
                     exchangeRate.setPrice(Double.parseDouble(exchange.getRate().replace(',','.')));
                     listOfExchanges.add(exchangeRate);
                 });
