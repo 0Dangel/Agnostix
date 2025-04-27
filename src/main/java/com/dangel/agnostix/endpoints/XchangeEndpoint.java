@@ -1,8 +1,8 @@
 package com.dangel.agnostix.endpoints;
 
-import com.dangel.agnostix.connectors.CnbApiDownloaderService;
 import com.dangel.agnostix.connectors.ExchangeApiDownloaderService;
-import com.dangel.agnostix.dto.cnb.CnbDto;
+import com.dangel.agnostix.dto.ExchangePreviewJson;
+import com.dangel.agnostix.enums.ExchangeSources;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,9 +21,9 @@ public class XchangeEndpoint {
     }
 
     @GetMapping("xchange_parsed")
-    public CnbDto getXchangeParsed() {
-        CnbDto cnbDto = new CnbDto();
-        cnbDto.setRates(xchangeService.getTodayExchanges());
-        return cnbDto;
+    public ExchangePreviewJson getXchangeParsed() {
+        ExchangePreviewJson xchangeDto = new ExchangePreviewJson(ExchangeSources.EXCHANGE_API.getCode());
+        xchangeDto.setRates(xchangeService.getTodayExchanges());
+        return xchangeDto;
     }
 }

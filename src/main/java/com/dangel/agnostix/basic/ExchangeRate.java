@@ -1,28 +1,23 @@
 package com.dangel.agnostix.basic;
 
-import com.dangel.agnostix.enums.ExchangeSources;
-
 public class ExchangeRate {
     private String country;
     private String currency;
     private int amount;
     private String code;
     private double price;
-    private ExchangeSources source;
 
     public ExchangeRate() {
         amount = 1;
         price = 1.0;
-        source = ExchangeSources.DEFAULT_EXCHANGE_SOURCE;
     }
 
-    public ExchangeRate(String country, String currency, int amount, String code, double price, ExchangeSources source) {
+    public ExchangeRate(String country, String currency, int amount, String code, double price) {
         this.country = country;
         this.currency = currency;
         this.amount = amount;
         this.code = code;
         this.price = price;
-        this.source = source;
     }
 
     public String getCountry() {
@@ -63,13 +58,5 @@ public class ExchangeRate {
 
     public void setPrice(double price) {
         this.price = price;
-    }
-
-    public ExchangeSources getSource() {
-        return source;
-    }
-
-    public void setSource(ExchangeSources source) {
-        this.source = source;
     }
 }
